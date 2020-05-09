@@ -10,14 +10,14 @@ import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
-        /**Thread.setDefaultUncaughtExceptionHandler(((thread, throwable) -> {
+        Thread.setDefaultUncaughtExceptionHandler(((thread, throwable) -> {
             JOptionPane.showMessageDialog(
                     null,
                     throwable.getClass().getSimpleName() + " " + throwable.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE
             );
-        }));**/
+        }));
 
         EventQueue.invokeLater(() -> {
             var view = new View();
