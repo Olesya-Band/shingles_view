@@ -1,12 +1,12 @@
 package com.ui;
 
+import com.nlp.Result;
 import com.nlp.TextComparator;
-import com.nlp.TextCompareResult;
-
-import javax.swing.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class Controller {
     private View view;
@@ -36,12 +36,13 @@ public class Controller {
         view.addRunAction(event -> {
             view.setLogFieldText("");
 
-            TextCompareResult res;
+            Result res;
 
             try {
-                res = comparator.run(
-                        Files.readString(Paths.get(view.getFirstFilePath())),
-                        Files.readString(Paths.get(view.getSecondFilePath()))
+                res = comparator.compare(
+                    Files.readString(Paths.get(view.getFirstFilePath())),
+                    Files.readString(Paths.get(view.getSecondFilePath())),
+                    view.printShingles()
                 );
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
@@ -77,7 +78,7 @@ public class Controller {
                 }
             }
 
-            view.addLogFieldLine(String.format("Мера схожести: %f", res.getEqualsMeasure()));
+            view.addLogFieldLine(String.format("Мера схожести: %f", res.getMeasure()));
             view.addLogFieldLine(String.format("Время работы: %d милисекунд", res.getTime()));
         });
     }
