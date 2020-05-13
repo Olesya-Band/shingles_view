@@ -2,7 +2,9 @@ package com.ui;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-
+/**
+ * Класс, содержащий графический элементы интерфейса
+ */
 public class View extends JFrame {
     private JTextField firstFilePath;
     private JTextField secondFilePath;
@@ -78,48 +80,77 @@ public class View extends JFrame {
         this.add(panel);
     }
 
+    /**
+     * метод, возвращает путь к первому файлу
+     */
     public String getFirstFilePath() {
         return firstFilePath.getText();
     }
 
+    /**
+     * метод, устанавливает путь к первому файлу
+     */
     public View setFirstFilePath(String path) {
-        firstFilePath.setText(path);
+        firstFilePath .setText(path);
         return this;
     }
 
+    /**
+     * метод, возвращает путь ко второму файлу
+     */
     public String getSecondFilePath() {
         return secondFilePath.getText();
     }
 
+    /**
+     * метод, устанавливает путь ко второму файлу
+     */
     public View setSecondFilePath(String path) {
         secondFilePath.setText(path);
         return this;
     }
 
+    /**
+     * метод, устанавливает действие, которое происходит при нажатии кнопки выбора первого файла
+     */
     public View addSetFirstFileAction(ActionListener listener) {
         setFirstFile.addActionListener(listener);
         return this;
     }
 
+    /**
+     * метод, устанавливает действие, которое происходит при нажатии кнопки выбора второго файла
+     */
     public View addSetSecondFileAction(ActionListener listener) {
         setSecondFile.addActionListener(listener);
         return this;
     }
 
+    /**
+     * метод, устанавливает текст в лог-поле
+     */
     public View setLogFieldText(String text) {
         logField.setText(text);
         return this;
     }
 
+    /**
+     * метод, добавляет строку в лог-поле
+     */
     public View addLogFieldLine(String line) {
         logField.append(line + "\n");
         return this;
     }
-
+    /**
+     * отображение шинглов при нажатии на кнопку
+     * printShingles возвращает значение JCheckBox "вывести шинглы"
+     */
     public boolean printShingles() {
         return printShinglesBox.isSelected();
     }
-
+    /**
+     * метод, добавляет действие для кнопки "запустить", которое будет вызываться, когда кнопка нажата
+     */
     public View addRunAction(ActionListener listener) {
         runButton.addActionListener(listener);
         return this;

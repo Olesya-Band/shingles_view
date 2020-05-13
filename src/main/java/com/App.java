@@ -7,7 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.util.Arrays;
-
+/**
+ * Класс, являющийся входной точкой приложения
+ */
 public class App {
     public static void main(String[] args) {
         Thread.setDefaultUncaughtExceptionHandler(((thread, throwable) -> {
@@ -21,6 +23,6 @@ public class App {
 
             var view = new View();
             var controller = new Controller(view);
-        
+
     }
 }

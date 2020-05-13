@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
+/**
+ * Класс, содержит логику обработки текстов и информацию о выводе результатов сравнения текстов
+ */
 public class Controller {
     private View view;
 
