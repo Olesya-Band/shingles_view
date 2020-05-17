@@ -2,11 +2,13 @@ package com.ui;
 
 import com.nlp.Result;
 import com.nlp.TextComparator;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+
 /**
  * Класс, содержит логику обработки текстов и информацию о выводе результатов сравнения текстов
  */
@@ -23,12 +25,18 @@ public class Controller {
         view.addSetFirstFileAction(event -> {
             var fileChooser = new JFileChooser();
 
+            var filter = new FileNameExtensionFilter("Txt file","txt");
+            fileChooser.setFileFilter(filter);
+
             if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
                 view.setFirstFilePath(fileChooser.getSelectedFile().getAbsolutePath());
             }
         });
         view.addSetSecondFileAction(event -> {
             var fileChooser = new JFileChooser();
+
+            var filter = new FileNameExtensionFilter("Txt file","txt");
+            fileChooser.setFileFilter(filter);
 
             if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
                 view.setSecondFilePath(fileChooser.getSelectedFile().getAbsolutePath());
@@ -42,19 +50,23 @@ public class Controller {
 
             try {
                 res = comparator.compare(
-                    Files.readString(Paths.get(view.getFirstFilePath())),
-                    Files.readString(Paths.get(view.getSecondFilePath())),
-                    view.printShingles()
+                        Files.readString(Paths.get(view.getFirstFilePath())),
+                        Files.readString(Paths.get(view.getSecondFilePath())),
+                        view.printShingles()
                 );
             } catch (Exception e) {
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(
                         view,
-                        e.getClass().getSimpleName() + " " + e.getMessage(),
-                        "Error",
+                        "Пожалуйста, выберите .txt файл",
+                        "Ошибка при чтении файлов",
                         JOptionPane.ERROR_MESSAGE
                 );
                 return;
             }
+
+            view.addLogFieldLine(String.format("Мера схожести: %f", res.getMeasure()));
+            view.addLogFieldLine("");
 
             view.addLogFieldLine(String.format("Цитаты первого текста: %s", res.getfQuotes()));
             view.addLogFieldLine(String.format("Средняя длина цитаты: %d", res.getfQuoteMidLen()));
@@ -80,8 +92,7 @@ public class Controller {
                 }
             }
 
-            view.addLogFieldLine(String.format("Мера схожести: %f", res.getMeasure()));
-            view.addLogFieldLine(String.format("Время работы: %d милисекунд", res.getTime()));
+            view.addLogFieldLine(String.format("Время работы: %d миллисекунд", res.getTime()));
         });
     }
 }
