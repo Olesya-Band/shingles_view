@@ -2,6 +2,7 @@ package com.ui;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+
 /**
  * Класс, содержащий графический элементы интерфейса
  */
@@ -23,6 +24,10 @@ public class View extends JFrame {
         this.setResizable(false);
 
         initComponents();
+        setFirstFile.setEnabled(false);
+        setSecondFile.setEnabled(false);
+        printShinglesBox.setEnabled(false);
+        runButton.setEnabled(false);
 
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,8 +52,8 @@ public class View extends JFrame {
         firstFileLabel.setBounds(10, 10, 140, 15);
         secondFileLabel.setBounds(10, 45, 140, 15);
 
-        firstFilePath.setBounds(140, 10, 350,20);
-        secondFilePath.setBounds(140, 45, 350,20);
+        firstFilePath.setBounds(140, 10, 350, 20);
+        secondFilePath.setBounds(140, 45, 350, 20);
 
         setFirstFile.setBounds(490, 10, 100, 20);
         setSecondFile.setBounds(490, 45, 100, 20);
@@ -91,7 +96,7 @@ public class View extends JFrame {
      * метод, устанавливает путь к первому файлу
      */
     public View setFirstFilePath(String path) {
-        firstFilePath .setText(path);
+        firstFilePath.setText(path);
         return this;
     }
 
@@ -141,6 +146,7 @@ public class View extends JFrame {
         logField.append(line + "\n");
         return this;
     }
+
     /**
      * отображение шинглов при нажатии на кнопку
      * printShingles возвращает значение JCheckBox "вывести шинглы"
@@ -148,6 +154,7 @@ public class View extends JFrame {
     public boolean printShingles() {
         return printShinglesBox.isSelected();
     }
+
     /**
      * метод, добавляет действие для кнопки "запустить", которое будет вызываться, когда кнопка нажата
      */
@@ -155,4 +162,15 @@ public class View extends JFrame {
         runButton.addActionListener(listener);
         return this;
     }
+
+    /**
+     * Метод, который разблокирует нажатие кнопок.
+     */
+    public void unblockButton() {
+        setFirstFile.setEnabled(true);
+        setSecondFile.setEnabled(true);
+        printShinglesBox.setEnabled(true);
+        runButton.setEnabled(true);
+    }
+
 }
