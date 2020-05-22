@@ -13,19 +13,27 @@ import java.util.Arrays;
  * Класс, содержит логику обработки текстов и информацию о выводе результатов сравнения текстов
  */
 public class Controller {
-    private View view;
+    private final View view;
 
     private TextComparator comparator;
 
     public Controller(View view) {
         this.view = view;
 
-        this.comparator = new TextComparator();
+        Runnable task = () -> {
+            this.comparator = new TextComparator();
+
+            this.view.unblockButton();
+
+        };
+
+        task.run();
+
 
         view.addSetFirstFileAction(event -> {
             var fileChooser = new JFileChooser();
 
-            var filter = new FileNameExtensionFilter("Txt file","txt");
+            var filter = new FileNameExtensionFilter("Txt file", "txt");
             fileChooser.setFileFilter(filter);
 
             if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
@@ -35,7 +43,7 @@ public class Controller {
         view.addSetSecondFileAction(event -> {
             var fileChooser = new JFileChooser();
 
-            var filter = new FileNameExtensionFilter("Txt file","txt");
+            var filter = new FileNameExtensionFilter("Txt file", "txt");
             fileChooser.setFileFilter(filter);
 
             if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
@@ -55,7 +63,6 @@ public class Controller {
                         view.printShingles()
                 );
             } catch (Exception e) {
-                e.printStackTrace();
                 JOptionPane.showMessageDialog(
                         view,
                         "Пожалуйста, выберите .txt файл",
@@ -65,16 +72,16 @@ public class Controller {
                 return;
             }
 
-            view.addLogFieldLine(String.format("Мера схожести: %f", res.getMeasure()));
+            view.addLogFieldLine(String.format("Мера схожести: %.2f", res.getMeasure()));
             view.addLogFieldLine("");
 
             view.addLogFieldLine(String.format("Цитаты первого текста: %s", res.getfQuotes()));
             view.addLogFieldLine(String.format("Средняя длина цитаты: %d", res.getfQuoteMidLen()));
-            view.addLogFieldLine(String.format("Процентное соотношение цитат к тексту: %f", res.getfQuotePercent()));
+            view.addLogFieldLine(String.format("Процентное соотношение цитат к тексту: %.2f", res.getfQuotePercent()));
 
             view.addLogFieldLine(String.format("Цитаты второго текста: %s", res.getsQuotes()));
             view.addLogFieldLine(String.format("Средняя длина цитаты: %d", res.getsQuoteMidLen()));
-            view.addLogFieldLine(String.format("Процентное соотношение цитат к тексту: %f", res.getsQuotePercent()));
+            view.addLogFieldLine(String.format("Процентное соотношение цитат к тексту: %.2f", res.getsQuotePercent()));
 
             view.addLogFieldLine(String.format("Одинаковые цитаты: %s", res.getEqualsQuotes()));
 
@@ -91,6 +98,7 @@ public class Controller {
                     view.addLogFieldLine(Arrays.toString(shingle));
                 }
             }
+            view.addLogFieldLine("");
 
             view.addLogFieldLine(String.format("Время работы: %d миллисекунд", res.getTime()));
         });
