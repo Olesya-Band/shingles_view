@@ -75,11 +75,17 @@ public class Controller {
             view.addLogFieldLine(String.format("Мера схожести: %.2f", res.getMeasure()));
             view.addLogFieldLine("");
 
-            view.addLogFieldLine(String.format("Цитаты первого текста: %s", res.getfQuotes()));
+            view.addLogFieldLine("Цитаты первого текста:");
+            for (var s : res.getfQuotes()) {
+                view.addLogFieldLine(s);
+            }
             view.addLogFieldLine(String.format("Средняя длина цитаты: %d", res.getfQuoteMidLen()));
             view.addLogFieldLine(String.format("Процентное соотношение цитат к тексту: %.2f", res.getfQuotePercent()));
 
-            view.addLogFieldLine(String.format("Цитаты второго текста: %s", res.getsQuotes()));
+            view.addLogFieldLine("Цитаты второго текста");
+            for (var s : res.getsQuotes()) {
+                view.addLogFieldLine(s);
+            }
             view.addLogFieldLine(String.format("Средняя длина цитаты: %d", res.getsQuoteMidLen()));
             view.addLogFieldLine(String.format("Процентное соотношение цитат к тексту: %.2f", res.getsQuotePercent()));
 
