@@ -44,6 +44,7 @@ public class View extends JFrame {
         setSecondFile = new JButton("Выбрать");
 
         logField = new JTextArea("");
+        logField.setColumns(500);
         logField.setEditable(false);
 
         printShinglesBox = new JCheckBox("Вывести шинглы", false);
