@@ -10,6 +10,8 @@ public class View extends JFrame {
     private JTextField firstFilePath;
     private JTextField secondFilePath;
 
+    private JLabel label;
+
     private JButton setFirstFile;
     private JButton setSecondFile;
 
@@ -19,6 +21,7 @@ public class View extends JFrame {
     private JButton runButton;
 
     public View() {
+        this.label = label;
         this.setTitle("Шинглы");
         this.setSize(600, 600);
         this.setResizable(false);
@@ -28,6 +31,7 @@ public class View extends JFrame {
         setSecondFile.setEnabled(false);
         printShinglesBox.setEnabled(false);
         runButton.setEnabled(false);
+
 
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,12 +47,15 @@ public class View extends JFrame {
         setFirstFile = new JButton("Выбрать");
         setSecondFile = new JButton("Выбрать");
 
+        label = new JLabel("Пожалуйста, подождите, идет загрузка...");
+
         logField = new JTextArea("");
         logField.setColumns(500);
         logField.setEditable(false);
 
         printShinglesBox = new JCheckBox("Вывести шинглы", false);
         runButton = new JButton("Запустить");
+
 
         firstFileLabel.setBounds(10, 10, 140, 15);
         secondFileLabel.setBounds(10, 45, 140, 15);
@@ -58,6 +65,8 @@ public class View extends JFrame {
 
         setFirstFile.setBounds(490, 10, 100, 20);
         setSecondFile.setBounds(490, 45, 100, 20);
+
+        label.setBounds(25,5,250,200);
 
         var scroll = new JScrollPane(logField);
         scroll.setBounds(10, 70, 580, 450);
@@ -78,10 +87,13 @@ public class View extends JFrame {
         panel.add(setFirstFile);
         panel.add(setSecondFile);
 
+        panel.add(label);
+
         panel.add(scroll);
 
         panel.add(printShinglesBox);
         panel.add(runButton);
+
 
         this.add(panel);
     }
@@ -172,6 +184,7 @@ public class View extends JFrame {
         setSecondFile.setEnabled(true);
         printShinglesBox.setEnabled(true);
         runButton.setEnabled(true);
+        label.setVisible(false);
     }
 
 }
